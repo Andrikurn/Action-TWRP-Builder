@@ -14,7 +14,7 @@ on:
       DEVICE_TREE_URL:
         description: 'DEVICE_TREE_URL'
         required: true
-        default: 'https://github.com/Andrikurn/pbrp_device_infinix_X6728'
+        default: 'https://github.com/Andrikurn/twrp_device_infinix_X6728'
       DEVICE_TREE_BRANCH:
         description: 'DEVICE_TREE_BRANCH'
         required: true
@@ -151,6 +151,12 @@ jobs:
       uses: pierotofy/set-swap-space@master
       with:
         swap-size-gb: 12
+
+    - name: Patch Health HAL
+      run: |
+        chmod +x ./${{ github.event.inputs.DEVICE_PATH }}/patches/01-patch-health-hal.sh
+        bash ./${{ github.event.inputs.DEVICE_PATH }}/patches/01-patch-health-hal.sh
+      working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
     - name: Building recovery
       run: |
