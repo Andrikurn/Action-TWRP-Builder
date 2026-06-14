@@ -152,13 +152,6 @@ jobs:
       with:
         swap-size-gb: 12
 
-    - name: Apply some patches.
-      run: |
-        chmod +x ./${{ github.event.inputs.DEVICE_PATH }}/patches/01-patch-health-hal.sh
-        bash ./${{ github.event.inputs.DEVICE_PATH }}/patches/01-patch-health-hal.sh
-        patch -p1 < ./${{ github.event.inputs.DEVICE_PATH }}/patches/02-patch-vibration.patch
-      working-directory: ${{ steps.pwd.outputs.workspace-folder }}
-
     - name: Building recovery
       run: |
         source build/envsetup.sh
